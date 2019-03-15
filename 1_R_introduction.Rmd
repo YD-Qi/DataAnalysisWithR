@@ -1,0 +1,307 @@
+---
+title: "Introduction to R"
+author: "Chris Qi"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+tutorial::go_interactive()
+```
+
+![](https://www.dropbox.com/s/nvwvot6qh3hssyn/martechc_logo.JPG?dl=1){width=100px}
+
+# R 软件安装 
+
+要愉快地使用R, 我们需要走两步：
+
+* 到这个网站 CRAN（Comprehensive R Archive Network）[http://www.r-project.org/](http://www.r-project.org/) ，下载R程序。
+  * Linux、Mac OS X和Windows都有相应的版本，根据你的电脑系统，选择对应的安装包，下载安装即可。
+  * 如果你找不到程序位置，那么请看这里[http://ftp.ctex.org/mirrors/CRAN/](http://ftp.ctex.org/mirrors/CRAN/)
+
+* 到Rstudio官网[http://www.rstudio.com/ide/download/](http://www.rstudio.com/ide/download/)，下载Rstudio程序，选择desktop那种，免费的就够用了。
+
+  * 一般来说，我们不在R里面直接操作，在安装R以后，我们在安装Rstudio，在Rstudio里完成我们所有的工作。
+  * R 与 RStudio 是什么关系呢？你可以简单的理解为，RStudio 是话筒，而 R 则是沟通所用的语言。
+
+
+
+# 界面熟悉和基本操作
+
+
+![](https://www.dropbox.com/s/cy1ls5p6f4qqcya/rstudio.png?dl=1)
+
+
+R是一种区分大小写的解释型语言。你可以在命令提示符（>）后每次输入并执行一条命令，或者一次性执行写在脚本文件中的一组命令。R中有多种数据类型，包括向量、矩阵、数据框（与数据集类似）以及列表（各种对象的集合）。
+
+
+可以当作最基本的计算器来使用。
+
+
+# 基本运算
+* 加: `+`
+* 减: `-`
+* 乘: `*`
+* 除: `/`
+* 乘方: `^`
+* 均值：`mean()`
+* 方差：`var()`
+* 标准差：`sd()`
+* 中位数：`median()`
+* 百分位数: `quantile()`
+
+```{r}
+7+7
+7-7
+7*7
+7/7
+7^2
+sqrt(7)
+
+mean(mtcars$mpg)
+
+var(mtcars$mpg)
+
+sd(mtcars$mpg)
+
+mode(mtcars$mpg)
+
+quantile(mtcars$mpg)
+```
+
+
+
+# 赋值
+
+R使用<-作为赋值符号。
+
+* 简单说来，赋值就是给一些东西取个名字，这样以后方便叫它。
+* 然后你只需要输入my_var，R Console就将42输出来：
+* 是这么操作的：
+
+```{r}
+my_var<-42
+my_var
+```
+
+
+# 对象
+
+一个对象可以是任何能被赋值的东西。对于R来说，对象可以是任何东西（数据、函数、图形、分析结果，等等）
+
+
+# c() 这个函数
+
+我们也可以使用c() 这个函数 function（c 意指是 combine）来赋值，它把多个对象放到一起，组成向量。
+
+```{r}
+lucky_numbers <- c(7, 77)
+lucky_numbers
+```
+
+
+#注释
+
+* 注释由符号#开头。在#之后出现的任何文本都会被R忽略而不运行。
+
+```{r}
+# 2+3
+```
+
+# 帮助查询
+
+* 输入?c 或者help(c)，在RStudio 右下角的介面 召唤出帮助文件 Help。
+
+
+# 功能包
+
+* 上面的c()是我们遇到的第一个函数，我们以后还会遇到许许多多的函数。而功能包则是函数的有机组合，以实现更丰富的功能。
+
+* R自带了一系列默认包（包括base、datasets、utils、grDevices、graphics、stats以及methods），它们提供了种类繁多的默认函数和数据集。
+
+* 其他包则按需要调用：先安装，再载入，然后就可以使用啦！
+
+* 安装功能包的函数 `install.packages()`
+
+```{r eval=FALSE}
+install.packages("dplyr")
+install.packages("ggplot2")
+library(dplyr)
+library(ggplot2)
+```
+
+* 一个包仅需安装一次。但和其他软件类似，包经常被其作者更新。使用命令`update.packages()`可以更新已经安装的包。
+
+* 然后我们就可以愉快的使用包了，具体来说里面的各种函数和数据。包中往往提供了演示性的小型数据集和示例代码，能够让我们尝试这些新功能。
+
+* 使用 `help(package="package_name")`可以查看某个包的简短描述以及包中的函数名称和数据集名称的列表。使用函数`help()`可以查看其中任意函数或数据集的更多细节。
+
+
+# 查看路径和设置路径
+
+路径（工作路径）是我们读取数据和存贮结果的地方。
+
+在自己的RStuido的 concole 输入：
+`getwd()` 查看自己的当前路径。
+`setwd(yourpath)` 设置想要的路径。
+
+或者使用RStudio右下方,Files这个tab里的齿轮来查看和更改。
+
+
+# 数据类型
+
+* 数值型 numerics (1, 2.5)
+
+* 逻辑判断 logical (TRUE or FALSE)
+
+* 字符型 characters
+
+* 因子 factors
+
+```{r}
+# Change my_numeric to be 42
+my_numeric <- 42
+
+# Change my_character to be "universe"
+my_character <- "universe"
+
+# Change my_logical to be FALSE
+my_logical <- FALSE
+```
+
+
+* 使用 `class()` 函数判断数据类型
+
+--
+```{r}
+# Declare variables of different types:
+my_numeric <- 42
+my_character <- "universe"
+my_logical <- FALSE
+
+class(my_numeric)
+class(my_character)
+class(my_logical)
+
+```
+
+
+# 因子 factor
+
+* 因子 factor又叫分类变量，有两种：名义型、有序型。
+  * 名义型，例如，学生的名字，它们之间是没有顺序的。
+  * 有序型，例如，好评，中评，差评，它们之间有顺序关系，但是没有数量关系，得不出来不同级别之间的差异具体是多少。
+
+* 函数factor()以一个整数向量的形式存储类别值，整数的取值范围是[1...k]（其中 k 是名义型变量中唯一值的个数），同时一个由字符串（原始值）组成的内部向量将映射到这些整数上。
+
+是不是有点晕，不着急，我们看点例子：
+--
+```{r}
+excellence<- c("excellent", "bad", "good", "okay", "bad")
+excellence
+
+excellence<- factor(excellence)
+excellence
+
+excellence <- factor(excellence, order=TRUE,
+                     levels=c("bad", "okay","good","excellent"))
+excellence
+```
+
+这里我们成功的把字符型变量excellence，先转换成了无序因子变量，再转换成了有顺序的因子变量。
+
+* 数值型变量可以用levels和labels参数来编码成因子。如果男性被编码成1，女性被编码成2，则以下语句：
+
+--
+```{r}
+sex<-c(1,2,2,1,2,1,1,3) 
+sex
+
+sex <- factor(sex, levels=c(1, 2), labels=c("Male", "Female"))
+sex
+```
+
+* 在这个栗子里，性别被当成类别型变量，标签“Male”和“Female”替代了1和2在结果中输出，而且所有不是1或2的性别变量将被设为缺失值。
+
+
+
+# 数据结构
+有这么几个：
+
+* vector 向量
+
+* matrix 矩阵
+
+* dataframe 数据集
+
+* list 列表
+
+
+向量是用于存储数值型、字符型或逻辑型数据的一维数组。执行组合功能的函数c()可用来创建向量
+
+注意：同一向量中无法混杂不同模式的数据。
+```{r}
+a <- c(1, 2, 5, 3, 6, -2, 4)
+b <- c("apple", "pear", "orange")
+c <- c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
+```
+
+通过在方括号中给定元素所处位置的数值，我们可以访问向量中的元素。例如'a[c(2)]'用于访问向量a中的第二个元素。方括号里面的负数则表示将对应位置的元素忽略。
+
+--
+```{r}
+a <- c(1, 2, 5, 3, 6, -2, 4)
+b <- c("apple", "pear", "orange")
+c <- c(TRUE, FALSE, TRUE, FALSE, TRUE, FALSE)
+
+a[3]
+
+a[-3] 
+
+b[c(1,3)]
+
+c[2:4]
+```
+
+matrix 矩阵:
+
+* 矩阵是一个二维数组
+
+* 只是每个元素都拥有相同的模式（数值型、字符型或逻辑型）。
+
+* 可通过函数matrix()创建矩阵。
+
+* 一般使用格式为：
+
+```{r}
+myMatrix <- matrix(1:15, nrow=3, ncol=5)  
+myMatrix
+```
+
+* 我们可以使用下标和方括号来选择矩阵中的行、列或元素。 
+
+* X[i, ]指矩阵 X 中的第 i 行
+
+* 矩阵都是二维的，和向量类似，矩阵中也仅能包含一种数据类型。
+
+```{r}
+y <- matrix(1:18, nrow=2)
+
+y
+
+y[2,]
+
+y[,1]
+
+y[2, 3]
+
+y[2, c(3,5)]
+
+```
+
+
+
+
+完结撒花！
+
+![](https://www.dropbox.com/s/9w3nxj755iqxnrz/sahua.gif?dl=1)
